@@ -68,7 +68,6 @@ class ListViewController : UIViewController{
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        
     }
     
     private func setupUITableView() {

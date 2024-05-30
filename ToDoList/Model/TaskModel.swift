@@ -8,10 +8,10 @@
 import Foundation
 
 class TaskModel {
-    var title = ""
-    var isCompleted = false
+    var title: String
+    var isCompleted: Bool
     
-    init(_ title: String = "", _ isCompleted: Bool = false) {
+    init(_ title: String = "To Do", _ isCompleted: Bool = false) {
         self.title = title
         self.isCompleted = isCompleted
     }
