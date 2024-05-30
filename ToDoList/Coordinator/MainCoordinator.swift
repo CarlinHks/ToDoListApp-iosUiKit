@@ -13,7 +13,10 @@ class MainCoordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-    
+}
+
+// MARK: Coordinator
+extension MainCoordinator: Coordinator {
     func start() {
         let viewModel = ListViewModel(coordinator: self)
         let viewControllr = ListViewController(viewModel)
@@ -21,10 +24,21 @@ class MainCoordinator {
         navigationController.setViewControllers([viewControllr], animated: false)
     }
     
-    
-}
+    func eventOccurred(with type: Event) {
+        switch type {
+        case .novo: 
+            let viewModel = DetailViewModel(task: TaskModel())
+            let destVC = DetailViewController(viewModel)
+            let navController = UINavigationController(rootViewController: destVC)
 
-// MARK: Coordinator
-extension MainCoordinator: Coordinator {
-    
+            navigationController.present(navController, animated: true)
+            
+        case .editar(let task):
+            let viewModel = DetailViewModel(task: task)
+            let destVC = DetailViewController(viewModel)
+            let navController = UINavigationController(rootViewController: destVC)
+
+            navigationController.present(navController, animated: true)
+        }
+    }
 }

@@ -11,4 +11,11 @@ protocol Coordinator {
     var navigationController: UINavigationController { get set }
     
     func start()
+    func eventOccurred(with type: Event)
+}
+
+
+enum Event {
+    case novo
+    case editar(task: TaskModel)
 }
