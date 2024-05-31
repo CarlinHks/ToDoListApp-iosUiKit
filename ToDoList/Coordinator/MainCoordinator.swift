@@ -31,22 +31,17 @@ extension MainCoordinator: Coordinator {
         case .new: 
             let viewModel = TaskDetailViewModel(task: nil, coordinator: self, taskStore: taskStore)
             let destVC = TaskDetailViewController(viewModel)
-            let navController = UINavigationController(rootViewController: destVC)
-
-            navigationController.present(navController, animated: true)
+            
+            navigationController.pushViewController(destVC, animated: true)
             
         case .edit(let task):
             let viewModel = TaskDetailViewModel(task: task, coordinator: self, taskStore: taskStore)
             let destVC = TaskDetailViewController(viewModel)
-            let navController = UINavigationController(rootViewController: destVC)
-
-            navigationController.present(navController, animated: true)
+            
+            navigationController.pushViewController(destVC, animated: true)
             
         case .dissmiss:
-            navigationController.dismiss(animated: true)
-            
-            let taskListViewController = navigationController.viewControllers.first as? TaskListViewController
-            taskListViewController?.tableView.reloadData()
+            navigationController.popViewController(animated: true)
         }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 class CustomCell: UITableViewCell {
     static let identifier = "CustomCell"
     
-    private let isCompletedImageView: UIImageView = {
+    private lazy var isCompletedImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.image = UIImage(systemName: "flag.slash.circle")
@@ -20,7 +20,7 @@ class CustomCell: UITableViewCell {
         return iv
     }()
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .left

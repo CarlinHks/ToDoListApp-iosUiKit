@@ -9,44 +9,58 @@ import Foundation
 
 class TaskStore {
     let defaults = UserDefaults.standard
-    var tasks: [Task] = []
+    var tasks: Observable<[Task]> = Observable([])
+    var taskUUID: UUID?
     
     init() {
         if let savedData = defaults.object(forKey: "tasks") as? Data {
             do{
-                tasks = try JSONDecoder().decode([Task].self, from: savedData)
+                tasks.value = try JSONDecoder().decode([Task].self, from: savedData)
             } catch {
-                tasks = []
+                tasks.value = []
             }
         }
+        
+        configureTask()
+    }
+    
+    deinit {
+        tasks.unbind(id: taskUUID)
+    }
+    
+    private func configureTask() {
+        taskUUID =  tasks.bind { _ in self.save() }
     }
     
     public func create(task: Task) {
-        tasks.append(task)
-        save()
+        var currentTasks = tasks.value ?? []
+        currentTasks.append(task)
+        tasks.value = currentTasks
     }
     
     public func delete(task: Task) {
-        tasks.removeAll { $0.id == task.id }
-        save()
+        var currentTasks = tasks.value ?? []
+        currentTasks.removeAll { $0.id == task.id }
+        tasks.value = currentTasks
     }
     
     public func update(task: Task) {
-        let idx = tasks.firstIndex { $0.id == task.id }
+        var currentTasks = tasks.value ?? []
+        let idx = currentTasks.firstIndex { $0.id == task.id }
         
         guard let idx else {
             fatalError("Task out of bounds")
         }
         
-        tasks[idx].title = task.title
-        tasks[idx].isCompleted = task.isCompleted
+        currentTasks[idx].title = task.title
+        currentTasks[idx].isCompleted = task.isCompleted
         
-        save()
+        tasks.value = currentTasks
     }
     
     private func save() {
         do {
-            let encodedData = try JSONEncoder().encode(tasks)
+            let encodedData = try JSONEncoder().encode(tasks.value)
             defaults.set(encodedData, forKey: "tasks")
         } catch {
             fatalError("Unable to save")

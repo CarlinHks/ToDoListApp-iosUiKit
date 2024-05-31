@@ -23,8 +23,23 @@ class TaskListViewController : UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupReload()
         setupUI()
     }
+    
+    private func setupReload() {
+        taskListViewModel.reloadTable = reloadTableVeiew
+    }
+    
+    public func reloadTableVeiew()  {
+        tableView.reloadData()
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        tableView.reloadData()
+//    }
     
     private func setupUI() {
         view.backgroundColor = .systemBackground

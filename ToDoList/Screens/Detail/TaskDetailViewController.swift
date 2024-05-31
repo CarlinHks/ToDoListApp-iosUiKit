@@ -10,7 +10,7 @@ import UIKit
 class TaskDetailViewController: UIViewController {
     let detailViewModel: TaskDetailViewModel
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Title"
         label.textAlignment = .center
@@ -20,7 +20,7 @@ class TaskDetailViewController: UIViewController {
         return label
     }()
     
-    private let completedLabel: UILabel = {
+    private lazy var completedLabel: UILabel = {
         let label = UILabel()
         label.text = "Completed"
         label.textAlignment = .left
@@ -30,7 +30,7 @@ class TaskDetailViewController: UIViewController {
         return label
     }()
     
-    private let titleTextView: UITextView = {
+    private lazy var titleTextView: UITextView = {
         let text = UITextView()
         text.textAlignment = .justified
         text.textColor = .label
@@ -44,7 +44,7 @@ class TaskDetailViewController: UIViewController {
         return text
     }()
     
-    private let isCompletedImageView: UIImageView = {
+    private lazy var isCompletedImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.image = UIImage(systemName: "flag.slash.circle")
@@ -68,10 +68,6 @@ class TaskDetailViewController: UIViewController {
     
     private lazy var saveButton: UIBarButtonItem = {
         UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
-    }()
-    
-    private lazy var cancelButton: UIBarButtonItem = {
-        UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
     }()
     
     @objc func saveButtonTapped() {
@@ -119,7 +115,6 @@ class TaskDetailViewController: UIViewController {
     
     private func setupUINavigation() {
         navigationItem.rightBarButtonItem = saveButton
-        navigationItem.leftBarButtonItem = cancelButton
     }
     
     private func setupUITitleLabel() {
