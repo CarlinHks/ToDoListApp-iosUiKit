@@ -1,5 +1,5 @@
 //
-//  ListViewModel.swift
+//  TaskListViewModel.swift
 //  ToDoList
 //
 //  Created by Carlos Pacheco on 30/05/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ListViewModel {
+class TaskListViewModel {
     var coordinator: Coordinator
     var tasks: [Task] = []
     

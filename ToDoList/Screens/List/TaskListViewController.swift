@@ -8,9 +8,9 @@
 import UIKit
 
 class TaskListViewController : UITableViewController{
-    var listViewModel: ListViewModel
+    var listViewModel: TaskListViewModel
     
-    init(_ listViewModel: ListViewModel) {
+    init(_ listViewModel: TaskListViewModel) {
         self.listViewModel = listViewModel
         
         super.init(nibName: nil, bundle: nil)

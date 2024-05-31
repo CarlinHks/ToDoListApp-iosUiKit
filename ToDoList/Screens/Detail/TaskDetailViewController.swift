@@ -7,8 +7,8 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
-    let detailViewModel: DetailViewModel
+class TaskDetailViewController: UIViewController {
+    let detailViewModel: TaskDetailViewModel
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -44,16 +44,6 @@ class DetailViewController: UIViewController {
         return text
     }()
     
-    private let salvarButton: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Salvar", for: .normal)
-        btn.backgroundColor = .blue
-        btn.layer.cornerRadius = 10
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        
-        return btn
-    }()
-    
     private let isCompletedImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -71,7 +61,23 @@ class DetailViewController: UIViewController {
         return switchView
     }()
     
-    init(_ detailViewModel: DetailViewModel) {
+    private lazy var saveButton: UIBarButtonItem = {
+        UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+    }()
+    
+    private lazy var cancelButton: UIBarButtonItem = {
+        UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+    }()
+    
+    
+    @objc func saveButtonTapped() {
+    }
+    
+    @objc func cancelButtonTapped() {
+        navigationController?.dismiss(animated: true)
+    }
+    
+    init(_ detailViewModel: TaskDetailViewModel) {
         self.detailViewModel = detailViewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -95,12 +101,17 @@ class DetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         
+        setupUINavigation()
         setupUITitleLabel()
         setupUITextField()
         setupUIIsCompletedImageView()
         setupUIToggle()
         setupUICompletedLabel()
-        setupUISalvarButton()
+    }
+    
+    private func setupUINavigation() {
+        navigationItem.rightBarButtonItem = saveButton
+        navigationItem.leftBarButtonItem = cancelButton
     }
     
     private func setupUITitleLabel() {
@@ -155,19 +166,6 @@ class DetailViewController: UIViewController {
             completedLabel.centerYAnchor.constraint(equalTo: isCompletedImageView.centerYAnchor),
             completedLabel.leadingAnchor.constraint(equalTo: isCompletedImageView.trailingAnchor, constant: 8),
             completedLabel.trailingAnchor.constraint(equalTo: toggle.leadingAnchor, constant: 8)
-        ])
-    }
-    
-    private func setupUISalvarButton() {
-        let padding: CGFloat = 16
-        
-        view.addSubview(salvarButton)
-        
-        NSLayoutConstraint.activate([
-            salvarButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            salvarButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
-            salvarButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            salvarButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
         ])
     }
 }
