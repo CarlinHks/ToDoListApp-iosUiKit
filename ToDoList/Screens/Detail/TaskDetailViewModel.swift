@@ -8,15 +8,35 @@
 import Foundation
 
 class TaskDetailViewModel {
-    let task: Task
+    let coordinator: Coordinator
+    let taskStore: TaskStore
+    var task: Task
     var isNew = false
     
-    init(task: Task?) {
+    init(task: Task?, coordinator: Coordinator, taskStore: TaskStore) {
+        self.taskStore = taskStore
+        self.coordinator = coordinator
+        
         if let task = task {
             self.task = task
         } else {
             self.task = Task()
             isNew = true
+        }
+    }
+    
+    public func dissmiss() {
+        coordinator.eventOccurred(with: .dissmiss)
+    }
+    
+    public func save(title: String, isCompleted: Bool) {
+        task.title = title
+        task.isCompleted = isCompleted
+        
+        if (isNew) {
+            taskStore.create(task: task)
+        } else {
+            taskStore.update(task: task)
         }
     }
 }

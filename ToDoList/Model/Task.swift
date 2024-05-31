@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct Task {
+struct Task: Codable {
     var title: String
     var isCompleted: Bool
+    var id = UUID()
     
     init(_ title: String = "To Do", _ isCompleted: Bool = false) {
         self.title = title

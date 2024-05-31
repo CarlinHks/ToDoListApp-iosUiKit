@@ -9,16 +9,18 @@ import UIKit
 
 class MainCoordinator {
     var navigationController: UINavigationController
+    let taskStore: TaskStore
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, taskStore: TaskStore) {
         self.navigationController = navigationController
+        self.taskStore = taskStore
     }
 }
 
 // MARK: Coordinator
 extension MainCoordinator: Coordinator {
     func start() {
-        let viewModel = TaskListViewModel(coordinator: self)
+        let viewModel = TaskListViewModel(coordinator: self, taskStore: taskStore)
         let viewControllr = TaskListViewController(viewModel)
         
         navigationController.setViewControllers([viewControllr], animated: false)
@@ -27,18 +29,24 @@ extension MainCoordinator: Coordinator {
     func eventOccurred(with type: Event) {
         switch type {
         case .novo: 
-            let viewModel = TaskDetailViewModel(task: Task())
+            let viewModel = TaskDetailViewModel(task: nil, coordinator: self, taskStore: taskStore)
             let destVC = TaskDetailViewController(viewModel)
             let navController = UINavigationController(rootViewController: destVC)
 
             navigationController.present(navController, animated: true)
             
         case .editar(let task):
-            let viewModel = TaskDetailViewModel(task: task)
+            let viewModel = TaskDetailViewModel(task: task, coordinator: self, taskStore: taskStore)
             let destVC = TaskDetailViewController(viewModel)
             let navController = UINavigationController(rootViewController: destVC)
 
             navigationController.present(navController, animated: true)
+            
+        case .dissmiss:
+            navigationController.dismiss(animated: true)
+            
+            let taskListViewController = navigationController.viewControllers.first as? TaskListViewController
+            taskListViewController?.tableView.reloadData()
         }
     }
 }

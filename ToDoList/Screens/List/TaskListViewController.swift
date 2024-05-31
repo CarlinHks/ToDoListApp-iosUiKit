@@ -41,7 +41,7 @@ class TaskListViewController : UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        listViewModel.tasks.count
+        listViewModel.taskStore.tasks.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +49,7 @@ class TaskListViewController : UITableViewController{
             fatalError("Dequeue CustomCell error.")
         }
         
-        let task = listViewModel.tasks[indexPath.row]
+        let task = listViewModel.taskStore.tasks[indexPath.row]
         
         cell.configure(task: task)
                 
@@ -59,7 +59,7 @@ class TaskListViewController : UITableViewController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let task = listViewModel.tasks[indexPath.row]
+        let task = listViewModel.taskStore.tasks[indexPath.row]
         listViewModel.coordinator.eventOccurred(with: .editar(task: task))
     }
 }

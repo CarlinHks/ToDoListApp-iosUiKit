@@ -18,4 +18,5 @@ protocol Coordinator {
 enum Event {
     case novo
     case editar(task: Task)
+    case dissmiss
 }

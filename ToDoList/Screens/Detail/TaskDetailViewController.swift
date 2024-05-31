@@ -71,10 +71,12 @@ class TaskDetailViewController: UIViewController {
     
     
     @objc func saveButtonTapped() {
+        detailViewModel.save(title: titleTextView.text, isCompleted: toggle.isOn)
+        detailViewModel.dissmiss()
     }
     
     @objc func cancelButtonTapped() {
-        navigationController?.dismiss(animated: true)
+        detailViewModel.dissmiss()
     }
     
     init(_ detailViewModel: TaskDetailViewModel) {
