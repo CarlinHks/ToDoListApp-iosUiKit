@@ -19,7 +19,7 @@ class MainCoordinator {
 extension MainCoordinator: Coordinator {
     func start() {
         let viewModel = ListViewModel(coordinator: self)
-        let viewControllr = ListViewController(viewModel)
+        let viewControllr = TaskListViewController(viewModel)
         
         navigationController.setViewControllers([viewControllr], animated: false)
     }
@@ -27,7 +27,7 @@ extension MainCoordinator: Coordinator {
     func eventOccurred(with type: Event) {
         switch type {
         case .novo: 
-            let viewModel = DetailViewModel(task: TaskModel())
+            let viewModel = DetailViewModel(task: Task())
             let destVC = DetailViewController(viewModel)
             let navController = UINavigationController(rootViewController: destVC)
 

@@ -39,7 +39,7 @@ class CustomCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(task: TaskModel) {
+    public func configure(task: Task) {
         isCompletedImageView.image = UIImage(systemName: task.isCompleted ? "flag.checkered" : "flag")
         titleLabel.text = task.title
     }

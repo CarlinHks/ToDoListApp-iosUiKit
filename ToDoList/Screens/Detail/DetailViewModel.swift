@@ -8,9 +8,9 @@
 import Foundation
 
 class DetailViewModel {
-    let task: TaskModel
+    let task: Task
     
-    init(task: TaskModel) {
+    init(task: Task) {
         self.task = task
     }
 }
