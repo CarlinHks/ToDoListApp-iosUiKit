@@ -8,8 +8,9 @@
 import Foundation
 
 class TaskDetailViewModel {
-    let coordinator: Coordinator
-    let taskStore: TaskStore
+    private let coordinator: Coordinator
+    private let taskStore: TaskStore
+    
     var task: Task
     var isNew = false
     

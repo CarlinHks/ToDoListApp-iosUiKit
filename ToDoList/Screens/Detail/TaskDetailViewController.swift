@@ -54,12 +54,17 @@ class TaskDetailViewController: UIViewController {
         return iv
     }()
     
-    private let toggle: UISwitch = {
+    private lazy var toggle: UISwitch = {
         let switchView = UISwitch()
         switchView.translatesAutoresizingMaskIntoConstraints = false
+        switchView.addTarget(self, action: #selector(toggleTapped), for: .valueChanged)
         
         return switchView
     }()
+    
+    @objc func toggleTapped() {
+        isCompletedImageView.image = UIImage(systemName: toggle.isOn ? "flag.checkered" : "flag")
+    }
     
     private lazy var saveButton: UIBarButtonItem = {
         UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
@@ -68,7 +73,6 @@ class TaskDetailViewController: UIViewController {
     private lazy var cancelButton: UIBarButtonItem = {
         UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
     }()
-    
     
     @objc func saveButtonTapped() {
         detailViewModel.save(title: titleTextView.text, isCompleted: toggle.isOn)
@@ -98,6 +102,8 @@ class TaskDetailViewController: UIViewController {
     
     private func configure() {
         titleTextView.text = detailViewModel.task.title
+        toggle.setOn(detailViewModel.task.isCompleted, animated: true)
+        isCompletedImageView.image = UIImage(systemName: detailViewModel.task.isCompleted ? "flag.checkered" : "flag")
     }
     
     private func setupUI() {
