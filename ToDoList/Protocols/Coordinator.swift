@@ -14,9 +14,8 @@ protocol Coordinator {
     func eventOccurred(with type: Event)
 }
 
-
 enum Event {
-    case novo
-    case editar(task: Task)
+    case new
+    case edit(task: Task)
     case dissmiss
 }

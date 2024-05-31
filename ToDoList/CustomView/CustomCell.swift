@@ -15,6 +15,7 @@ class CustomCell: UITableViewCell {
         iv.contentMode = .scaleAspectFit
         iv.image = UIImage(systemName: "flag.slash.circle")
         iv.tintColor = .label
+        iv.translatesAutoresizingMaskIntoConstraints = false
         
         return iv
     }()
@@ -25,6 +26,7 @@ class CustomCell: UITableViewCell {
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 24, weight: .medium)
         label.text = "ERROR"
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -47,9 +49,6 @@ class CustomCell: UITableViewCell {
     private func setupUI() {
         contentView.addSubview(isCompletedImageView)
         contentView.addSubview(titleLabel)
-        
-        isCompletedImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let imgSize: CGFloat = 24
         

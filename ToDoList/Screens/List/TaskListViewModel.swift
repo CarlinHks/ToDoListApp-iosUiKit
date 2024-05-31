@@ -26,10 +26,10 @@ class TaskListViewModel {
     }
     
     public func addButtonTapped() {
-        coordinator.eventOccurred(with: .novo)
+        coordinator.eventOccurred(with: .new)
     }
     
     public func editar(task: Task) {
-        coordinator.eventOccurred(with: .editar(task: task))
+        coordinator.eventOccurred(with: .edit(task: task))
     }
 }

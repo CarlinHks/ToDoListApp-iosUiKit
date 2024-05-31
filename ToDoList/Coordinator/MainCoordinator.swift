@@ -28,14 +28,14 @@ extension MainCoordinator: Coordinator {
     
     func eventOccurred(with type: Event) {
         switch type {
-        case .novo: 
+        case .new: 
             let viewModel = TaskDetailViewModel(task: nil, coordinator: self, taskStore: taskStore)
             let destVC = TaskDetailViewController(viewModel)
             let navController = UINavigationController(rootViewController: destVC)
 
             navigationController.present(navController, animated: true)
             
-        case .editar(let task):
+        case .edit(let task):
             let viewModel = TaskDetailViewModel(task: task, coordinator: self, taskStore: taskStore)
             let destVC = TaskDetailViewController(viewModel)
             let navController = UINavigationController(rootViewController: destVC)
